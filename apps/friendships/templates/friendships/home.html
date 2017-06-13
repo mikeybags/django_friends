@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Friends</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'users/styles.css' %}" type="text/css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px|Bubbler+One|Pangolin" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class='col-xs-6'>
+        <h2>Hello, {{ alias }}</h2>
+        <h5>Here is the list of your friends:</h5>
+      </div>
+      <div class='col-xs-6'>
+        <a class="logout pull-right" href="{% url 'users:logout' %}">Log Out</a>
+      </div>
+      <div class="friends-div col-xs-12">
+        <table class="table table-striped table-bordered text-center">
+          <thead>
+            <th class="text-center">Alias</th>
+            <th class="text-center">Action</th>
+          </thead>
+          <tbody>
+            {% for friend in friends %}
+            <tr>
+              {% if friend.friend.id != user_id %}
+              <td>{{ friend.friend.alias }}</td>
+              {% else %}
+              <td>{{ friend.user.alias }}</td>
+              {% endif %}
+              <td>
+                {% if friend.friend.id != user_id %}
+                <a class="col-xs-6" href="{% url 'friendships:view' user_id=friend.friend.id %}">View Profile</a>
+                {% else %}
+                <a class="col-xs-6" href="{% url 'friendships:view' user_id=friend.user.id %}">View Profile</a>
+                {% endif %}
+                <a class="col-xs-6" href="{% url 'friendships:delete' friendship_id=friend.id %}">Remove as Friend</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="non-friends-div col-xs-12">
+        <h4>Other users not on your friends list:</h4>
+        <table class="table table-striped table-bordered text-center">
+          <thead>
+            <th class="text-center">Alias</th>
+            <th class="text-center">Action</th>
+          </thead>
+          <tbody>
+            {% for user in non_friends %}
+            <tr>
+              <td><a href="{% url 'friendships:view' user_id=user.id %}">{{ user.alias }}</a></td>
+              <td><a class="btn btn-primary" href="{% url 'friendships:add' friend_id=user.id %}">Add as friend</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

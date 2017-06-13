@@ -1,0 +1,43 @@
+* {
+  font-family: "Slabo"
+}
+
+a {
+  font-family: "Pangolin"
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Bubbler One"
+}
+
+@media(min-width:992px){
+  .form-button {
+    margin-left: 78px;
+  }
+}
+
+@media(min-width:1200px) {
+  .form-button {
+    margin-left: 95px;
+  }
+}
+
+.btn-primary {
+  background-color: orange;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active {
+  background-color: red;
+}
+
+.logout {
+  margin-top: 10px;
+}
+
+.table {
+  width: 60%;
+}
+
+.links {
+  margin-top: 10px;
+}
