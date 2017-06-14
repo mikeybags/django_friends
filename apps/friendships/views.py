@@ -8,12 +8,16 @@ def index(request):
     user_id = request.session['id']
     alias = request.session['alias']
     non_friends = User.objects.exclude(id=user_id).exclude(users_friend__friend=user_id).exclude(friends_friend__user=user_id)
-    friends = Friend.objects.filter(user=user_id) | Friend.objects.filter(friend=user_id)
+    friends = Friend.objects.filter(user=user_id, accepted=True) | Friend.objects.filter(friend=user_id, accepted=True)
+    sent_requests = Friend.objects.filter(user=user_id, accepted=False)
+    received_requests = Friend.objects.filter(friend=user_id, accepted=False)
     context = {
         'user_id': user_id,
         'alias': alias,
         'non_friends': non_friends,
-        'friends': friends
+        'friends': friends,
+        'sent_requests': sent_requests,
+        'received_requests': received_requests
     }
     return render(request, "friendships/home.html", context)
 
@@ -33,5 +37,13 @@ def view(request, user_id):
     return render(request, "friendships/view.html", context)
 
 def delete(request, friendship_id):
+    Friend.objects.get(id=friendship_id).delete()
+    return redirect("friendships:home")
+
+def accept(request, friendship_id):
+    Friend.objects.filter(id=friendship_id).update(accepted=True)
+    return redirect("friendships:home")
+
+def decline(request, friendship_id):
     Friend.objects.get(id=friendship_id).delete()
     return redirect("friendships:home")

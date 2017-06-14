@@ -9,10 +9,14 @@ class FriendManager(models.Manager):
         friend = User.objects.get(user_id = friend_id)
         pass
 
+    def accept_friendship(self, friend):
+        pass
+
 class Friend(models.Model):
     user = models.ForeignKey(User, related_name="users_friend")
     friend = models.ForeignKey(User, related_name="friends_friend")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    accepted = models.BooleanField(default=False)
 
     objects = FriendManager()
