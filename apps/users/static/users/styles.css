@@ -16,19 +16,31 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media(max-width:992px){
+  #register {
+    margin-top: 25px;
+  }
+
+  #login {
+    margin-top: 50px;
+  }
+}
+
 @media(min-width:1200px) {
   .form-button {
     margin-left: 95px;
   }
 }
 
+/*
+The following was just to demonstrate the overriding of bootstrap classes.
 .btn-primary {
-  background-color: orange;
+  background-color: blue;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active {
-  background-color: red;
-}
+  background-color: lightblue;
+}*/
 
 .logout {
   margin-top: 10px;

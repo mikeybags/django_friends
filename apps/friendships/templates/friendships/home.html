@@ -39,11 +39,11 @@
                 {% endif %}
                 <td>
                   {% if friend.friend.id != user_id %}
-                  <a class="col-xs-6" href="{% url 'friendships:view' user_id=friend.friend.id %}">View Profile</a>
+                  <a class="btn btn-primary" href="{% url 'friendships:view' user_id=friend.friend.id %}">View Profile</a>
                   {% else %}
-                  <a class="col-xs-6" href="{% url 'friendships:view' user_id=friend.user.id %}">View Profile</a>
+                  <a class="btn btn-primary" href="{% url 'friendships:view' user_id=friend.user.id %}">View Profile</a>
                   {% endif %}
-                  <a class="col-xs-6" href="{% url 'friendships:delete' friendship_id=friend.id %}">Remove as Friend</a>
+                  <a class="btn btn-danger" href="{% url 'friendships:delete' friendship_id=friend.id %}">Remove as Friend</a>
                 </td>
               </tr>
               {% endfor %}

@@ -22,7 +22,7 @@
         <h2>{{user.alias}}'s Profile</h2>
         <h4>Name: {{user.name}}</h4>
         <h4>Email Address: {{user.email}}</h4>
-        <h4>Birthday: {{ user.birthday.year }}</h4>
+        <h4>Birthday: {{ user.birthday|date:"F d, Y" }}</h4>
       </div>
 
     </div>
